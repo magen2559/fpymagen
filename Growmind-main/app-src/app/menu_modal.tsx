@@ -27,7 +27,7 @@ export default function MenuModal() {
     );
 
     return (
-        <View style={styles.container}>
+        <View style={styles.container} pointerEvents="box-none">
             {/* Backdrop (tap to close) */}
             <Pressable style={styles.backdrop} onPress={() => router.back()}>
                 <BlurView intensity={20} tint={isDark ? "dark" : "light"} style={StyleSheet.absoluteFill} />
@@ -68,9 +68,10 @@ const styles = StyleSheet.create({
     backdrop: { flex: 1 },
     drawer: {
         width: DRAWER_WIDTH, height: '100%',
-        paddingTop: Platform.OS === 'ios' ? 60 : 40,
+        paddingTop: 60,
         position: 'absolute', left: 0, top: 0, bottom: 0,
         shadowColor: "#000", shadowOffset: { width: 4, height: 0 }, shadowOpacity: 0.1, shadowRadius: 12, elevation: 10,
+        zIndex: 1000,
     },
     header: {
         flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',

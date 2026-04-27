@@ -432,16 +432,18 @@ export default function HomeScreen() {
                     <View style={styles.gardenHeaderBadge}>
                         <Text style={[styles.gardenBadgeText, { color: colors.primary[700] }]}>🪙 {totalCoins}</Text>
                     </View>
-                    <Canvas camera={{ fov: 60, position: [0, 2, 6] }}>
-                        <OrbitControls makeDefault minPolarAngle={Math.PI / 6} maxPolarAngle={Math.PI / 2 - 0.1} enablePan={false} enableZoom={false} />
-                        <Lighting colors={colors} isDark={isDark} />
-                        <Ground isDark={isDark} />
-                        {plants.length === 0 ? (
-                            <Plant position={[0, 0, 0]} plantType="bonsai" />
-                        ) : (
-                            plants.map(p => <Plant key={p.id} position={[p.position_x, p.position_y, p.position_z]} scale={0.7} plantType={p.type} health={p.health} isHarvestable={p.is_harvestable} onHarvest={() => handleHarvest(p.id)} />)
-                        )}
-                    </Canvas>
+                    <View style={{ flex: 1 }} pointerEvents="none">
+                        <Canvas camera={{ fov: 60, position: [0, 2, 6] }}>
+                            <OrbitControls makeDefault minPolarAngle={Math.PI / 6} maxPolarAngle={Math.PI / 2 - 0.1} enablePan={false} enableZoom={false} />
+                            <Lighting colors={colors} isDark={isDark} />
+                            <Ground isDark={isDark} />
+                            {plants.length === 0 ? (
+                                <Plant position={[0, 0, 0]} plantType="bonsai" />
+                            ) : (
+                                plants.map(p => <Plant key={p.id} position={[p.position_x, p.position_y, p.position_z]} scale={0.7} plantType={p.type} health={p.health} isHarvestable={p.is_harvestable} onHarvest={() => handleHarvest(p.id)} />)
+                            )}
+                        </Canvas>
+                    </View>
                     <View style={styles.gardenTapHint}>
                         <Ionicons name="expand-outline" size={14} color="#fff" />
                         <Text style={{ color: '#fff', fontSize: 10, fontWeight: '600', marginLeft: 4 }}>Tap to explore</Text>
