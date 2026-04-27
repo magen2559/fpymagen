@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FYP Poster - GrowMind (Final Edition)</title>
+    <!-- Use a premium font -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --fyp-maroon: #A52A2A;
+            --fyp-light-bg: #F9F9F9;
+            --fyp-yellow: #FEF3C7;
+            --text-dark: #1E293B;
+            --border-grey: #E2E8F0;
+        }
+
+        body {
+            margin: 0;
+            padding: 40px;
+            background-color: #E2E8F0;
+            font-family: 'Outfit', sans-serif;
+            display: flex;
+            justify-content: center;
+            color: var(--text-dark);
+        }
+
+        .poster {
+            width: 1200px;
+            min-height: 1697px; /* A4 aspect */
+            background-color: white;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            position: relative;
+            box-sizing: border-box;
+            padding: 60px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- TOP MARGIN TEXT --- */
+        .top-margin-label {
+            position: absolute;
+            top: 20px;
+            left: 60px;
+            color: #94A3B8;
+            font-size: 1.1rem;
+            border-bottom: 1px solid #CBD5E1;
+            padding-bottom: 5px;
+            width: 150px;
+            text-align: center;
+        }
+
+        /* --- HEADER --- */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .header-logos {
+            display: flex;
+            gap: 15px;
+        }
+
+        .logo-pill {
+            background-color: #F1F5F9;
+            border: 1px solid #CBD5E1;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 800;
+            color: #64748B;
+            font-size: 0.8rem;
+            text-align: center;
+            width: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header-center {
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        .header-center h1 {
+            font-size: 5rem;
+            margin: 0;
+            font-weight: 800;
+            letter-spacing: -2px;
+        }
+
+        .header-center h2 {
+            font-size: 1.6rem;
+            margin: 0;
+            font-weight: 600;
+            color: #334155;
+        }
+
+        .header-center p {
+            font-size: 1.2rem;
+            margin: 5px 0 0 0;
+            color: #64748B;
+        }
+
+        .profile-pic {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background-color: #FEF3C7;
+            border: 3px solid #F59E0B;
+            margin-left: 20px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .profile-pic img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* --- CONTENT GRID --- */
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 20px;
+        }
+
+        .section-header {
+            background-color: var(--fyp-maroon);
+            color: white;
+            padding: 8px 30px;
+            display: inline-block;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        .box {
+            background-color: #F8FAFC;
+            border: 1px solid var(--border-grey);
+            border-radius: 16px;
+            padding: 25px;
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+
+        .objectives-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .objectives-list li {
+            background-color: #F1F5F9;
+            margin-bottom: 12px;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+
+        .objectives-list li strong {
+            margin-right: 10px;
+        }
+
+        /* Methodology Diagram Mockup */
+        .methodology-box {
+            text-align: center;
+        }
+
+        .agile-diagram {
+            width: 350px;
+            height: 350px;
+            margin: 10px auto;
+            position: relative;
+        }
+
+        .agile-center {
+            width: 150px;
+            height: 150px;
+            background: white;
+            border: 5px solid var(--fyp-maroon);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.5rem;
+            position: absolute;
+            top: 100px;
+            left: 100px;
+            z-index: 5;
+        }
+
+        .step-pill {
+            position: absolute;
+            background: var(--fyp-maroon);
+            color: white;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        /* Approximate circle layout */
+        .s-1 { top: 0; left: 115px; }
+        .s-2 { top: 70px; right: -10px; }
+        .s-3 { bottom: 30px; right: 0px; }
+        .s-4 { bottom: -10px; left: 120px; }
+        .s-5 { bottom: 30px; left: 0px; }
+        .s-6 { top: 70px; left: -10px; }
+
+        /* --- RESULTS SECTION (FULL WIDTH) --- */
+        .results-section {
+            grid-column: span 2;
+            margin-top: 30px;
+        }
+
+        .results-box {
+            border: 2px solid var(--fyp-maroon);
+            border-radius: 20px;
+            padding: 30px;
+        }
+
+        .results-label {
+            text-align: center;
+            font-weight: 800;
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+        }
+
+        .screenshot-layout {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .screenshot-row {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .screenshot-block {
+            text-align: center;
+            width: 220px;
+        }
+
+        .screenshot-frame {
+            width: 100%;
+            height: 380px;
+            background: #F8FAFC;
+            border: 2px solid var(--fyp-maroon);
+            border-radius: 24px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .screenshot-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .screenshot-label {
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--text-dark);
+        }
+
+        /* --- BOTTOM SECTION --- */
+        .bottom-section {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 40px;
+            margin-top: 40px;
+            flex-grow: 1;
+        }
+
+        .commercial-box {
+            background-color: var(--fyp-yellow);
+            border: 1px solid #FDE68A;
+            border-radius: 20px;
+            padding: 25px;
+        }
+
+        .commercial-box h3 {
+            background: #F59E0B;
+            color: #1E293B;
+            display: inline-block;
+            padding: 5px 20px;
+            border-radius: 12px;
+            margin: 0 0 15px 0;
+            text-transform: uppercase;
+            font-weight: 800;
+        }
+
+        .commercial-list {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .commercial-list li {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .conclusion-text {
+            border-top: 3px solid #F1F5F9;
+            padding-top: 15px;
+        }
+
+        /* Utilities */
+        @media print {
+            body { padding: 0; background-color: white; }
+            .poster { box-shadow: none; border: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="poster">
+        
+        <div class="top-margin-label">5cm margin</div>
+
+        <!-- HEADER -->
+        <div class="header">
+            <div class="header-logos">
+                <div class="logo-pill">UNIVERSITY<br>LOGO</div>
+                <div class="logo-pill">FACULTY<br>LOGO</div>
+            </div>
+            
+            <div class="header-center">
+                <h1>GrowMind</h1>
+                <h2>A Gamified Focus and Productivity App Using a Pomodoro Timer and a Virtual 3D Garden</h2>
+                <p>Final Year Project | Faculty of Engineering, Built Environment, and Information Technology</p>
+                <p style="font-weight: 600; color: #334155;">Izz Bin Ismail, Ms Norizan Binti Johari</p>
+            </div>
+            
+            <div class="profile-pic">
+                <!-- Replace with profile.jpeg -->
+                <img src="profile.jpeg" alt="Profile">
+            </div>
+        </div>
+
+        <!-- CONTENT -->
+        <div class="content">
+            
+            <!-- COLUMN 1: ABSTRACT & OBJECTIVES -->
+            <div>
+                <div class="section-header">Abstract</div>
+                <div class="box conclusion-text" style="margin-bottom: 40px;">
+                    GrowMind is a novel application addressing student distraction and focus. By integrating a Pomodoro timer with a reward system, users build and nurture a virtual 3D garden through focused study sessions. The positive reinforcement encourages sustained concentration and boosts productivity, gamifying the academic workflow and enhancing student outcomes.
+                </div>
+
+                <div class="section-header">Objectives</div>
+                <ul class="objectives-list">
+                    <li><strong>1.</strong> Develop a Pomodoro-style focus timer for study sessions.</li>
+                    <li><strong>2.</strong> Implement an immersive virtual 3D garden that evolves.</li>
+                    <li><strong>3.</strong> Create a coin-based reward system for successful focus cycles.</li>
+                    <li><strong>4.</strong> Enable user authentication and progress tracking.</li>
+                </ul>
+            </div>
+
+            <!-- COLUMN 2: METHODOLOGY -->
+            <div class="methodology-box">
+                <div class="section-header">Methodology</div>
+                <div class="box">
+                    <strong>Agile Development Methodology</strong>
+                    <div class="agile-diagram">
+                        <div class="agile-center">Agile<br>Lifecycle</div>
+                        <div class="step-pill s-1">PLANNING</div>
+                        <div class="step-pill s-2">DESIGN</div>
+                        <div class="step-pill s-3">IMPLEMENTATION</div>
+                        <div class="step-pill s-4">TESTING</div>
+                        <div class="step-pill s-5">DEPLOYMENT</div>
+                        <div class="step-pill s-6">ANALYSIS</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RESULTS (Full Width) -->
+            <div class="results-section">
+                <div class="section-header">Results</div>
+                <div class="results-box">
+                    <div class="results-label">Application Screenshots</div>
+                    <div class="screenshot-layout">
+                        <!-- Top Row (3) -->
+                        <div class="screenshot-row">
+                            <div class="screenshot-block">
+                                <div class="screenshot-frame"><img src="screen1.jpeg" alt="App Dashboard"></div>
+                                <div class="screenshot-label">App Dashboard</div>
+                            </div>
+                            <div class="screenshot-block">
+                                <div class="screenshot-frame"><img src="screen2.jpeg" alt="Pomodoro Timer View"></div>
+                                <div class="screenshot-label">Pomodoro Timer View</div>
+                            </div>
+                            <div class="screenshot-block">
+                                <div class="screenshot-frame"><img src="screen3.jpeg" alt="Garden Progress Visualization"></div>
+                                <div class="screenshot-label">Garden Progress Visualization</div>
+                            </div>
+                        </div>
+                        <!-- Bottom Row (2) -->
+                        <div class="screenshot-row">
+                            <div class="screenshot-block">
+                                <div class="screenshot-frame"><img src="screen4.jpeg" alt="Coin Store & Customization"></div>
+                                <div class="screenshot-label">Coin Store & Customization</div>
+                            </div>
+                            <div class="screenshot-block">
+                                <div class="screenshot-frame"><img src="screen5.jpeg" alt="Profile & Analytics"></div>
+                                <div class="screenshot-label">Profile & Analytics</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BOTTOM ROW: CONCLUSION & COMMERCIAL -->
+            <div class="bottom-section" style="grid-column: span 2;">
+                <div>
+                    <div class="section-header">Conclusion & Future Work</div>
+                    <div class="box">
+                        GrowMind successfully demonstrates the effectiveness of integrating gamification with focus tools. Students reported increased engagement and improved concentration. Future work will focus on introducing social features, advanced analytics, and cross-platform compatibility.
+                    </div>
+                </div>
+
+                <div class="commercial-box">
+                    <h3>Commercialisation Potential</h3>
+                    <ul class="commercial-list">
+                        <li><strong>Explore freemium models</strong> with premium garden elements.</li>
+                        <li><strong>Institutional licensing</strong> for universities and study centers.</li>
+                        <li><strong>In-app purchases</strong> for specialized 3D assets.</li>
+                        <li>Potential for data insights on student productivity.</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

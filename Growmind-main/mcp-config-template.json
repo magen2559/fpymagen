@@ -1,0 +1,57 @@
+# Quick MCP Configuration Template
+
+## Copy this to your MCP configuration file
+
+```json
+{
+  "mcpServers": {
+    "supabase": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-supabase"],
+      "env": {
+        "SUPABASE_URL": "REPLACE_WITH_YOUR_PROJECT_URL",
+        "SUPABASE_SERVICE_ROLE_KEY": "REPLACE_WITH_YOUR_SERVICE_ROLE_KEY"
+      }
+    },
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "REPLACE_WITH_YOUR_GITHUB_TOKEN"
+      }
+    }
+  }
+}
+```
+
+## Steps to Configure:
+
+1. **Get Supabase Credentials**:
+   - Go to https://supabase.com
+   - Create project "growmind"
+   - Settings → API
+   - Copy Project URL and service_role key
+
+2. **Get GitHub Token**:
+   - Go to https://github.com/settings/tokens
+   - Generate new token (classic)
+   - Select scopes: repo, workflow, packages
+   - Copy token
+
+3. **Update Configuration**:
+   - Replace REPLACE_WITH_YOUR_PROJECT_URL
+   - Replace REPLACE_WITH_YOUR_SERVICE_ROLE_KEY
+   - Replace REPLACE_WITH_YOUR_GITHUB_TOKEN
+
+4. **Save & Restart**:
+   - Save the configuration file
+   - Restart your AI assistant
+   - MCP servers should now be available!
+
+## Verify It Works:
+
+Ask your AI assistant:
+- "Can you list my Supabase tables?"
+- "Can you check my GitHub repositories?"
+
+If you get responses, MCP is working! 🎉

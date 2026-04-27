@@ -1,0 +1,57 @@
+# .gitignore for GrowMind FYP
+
+# Node modules
+app-src/node_modules/
+
+# Expo
+app-src/.expo/
+app-src/.expo-shared/
+
+# Environment variables (NEVER commit these!)
+app-src/.env
+app-src/.env.local
+app-src/.env.development
+app-src/.env.production
+.env
+.env.local
+
+# OS files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build outputs
+app-src/dist/
+app-src/build/
+app-src/web-build/
+
+# Temporary files
+*.tmp
+*.temp
+
+# Supabase local (if using local development)
+.supabase/
+
+# Testing
+coverage/
+.nyc_output/
+
+# Misc
+.cache/
+
+# Credentials (NEVER commit!)
+supabase-credentials.json

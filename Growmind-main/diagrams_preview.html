@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GrowMind System Diagrams</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+
+        h1,
+        h2 {
+            color: #10b981;
+            /* Emerald green theme */
+        }
+
+        .diagram-container {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow-x: auto;
+        }
+
+        .description {
+            margin-bottom: 15px;
+            color: #555;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>GrowMind System Diagrams</h1>
+    <p>This page renders all the system diagrams for your documentation and reporting.</p>
+
+    <h2>1. Entity Relationship Diagram (ERD)</h2>
+    <div class="description">Illustrates the database structure modeled in Supabase.</div>
+    <div class="diagram-container">
+        <pre class="mermaid">
+erDiagram
+    PROFILES ||--o{ SESSIONS : has
+    PROFILES ||--o{ PLANTS : owns
+
+    PROFILES {
+        UUID id PK
+        TEXT username UK
+        TEXT avatar_url
+        INTEGER xp
+        INTEGER level
+        TEXT garden_theme
+        TIMESTAMPTZ created_at
+        TIMESTAMPTZ updated_at
+    }
+
+    SESSIONS {
+        UUID id PK
+        UUID user_id FK
+        TIMESTAMPTZ start_time
+        TIMESTAMPTZ end_time
+        INTEGER duration_seconds
+        TEXT tag
+        TEXT status
+        TIMESTAMPTZ created_at
+    }
+
+    PLANTS {
+        UUID id PK
+        UUID user_id FK
+        TEXT type
+        INTEGER stage
+        FLOAT health
+        FLOAT position_x
+        FLOAT position_y
+        FLOAT position_z
+        TIMESTAMPTZ created_at
+        TIMESTAMPTZ updated_at
+    }
+        </pre>
+    </div>
+
+    <h2>2. Class Diagram</h2>
+    <div class="description">Represents the main data objects and their associated methods within the app's business
+        logic.</div>
+    <div class="diagram-container">
+        <pre class="mermaid">
+classDiagram
+    class Profile {
+        +UUID id
+        +String username
+        +int xp
+        +int level
+        +String garden_theme
+        +createSession() Session
+        +addPlant(type, position) Plant
+        +updateXP(amount)
+        +levelUp()
+    }
+    class Session {
+        +UUID id
+        +UUID user_id
+        +DateTime start_time
+        +int duration_seconds
+        +String tag
+        +String status
+        +start()
+        +complete()
+        +abandon()
+        +calculateReward() int
+    }
+    class Plant {
+        +UUID id
+        +UUID user_id
+        +String type
+        +int stage
+        +float health
+        +water()
+        +grow()
+    }
+
+    Profile "1" *-- "many" Session : Tracks
+    Profile "1" *-- "many" Plant : Nurtures
+        </pre>
+    </div>
+
+    <h2>3. Use Case Diagram</h2>
+    <div class="description">Highlights user interactions with the system.</div>
+    <div class="diagram-container">
+        <pre class="mermaid">
+flowchart LR
+    User([User])
+    
+    subgraph GrowMind Application
+        Auth(Authentication & Setup)
+        Focus(Perform Focus Session)
+        Garden(Manage Virtual 3D Garden)
+        Stats(View Profile & Stats)
+        Rewards(Earn XP & Level Up)
+    end
+    
+    User --> Auth
+    User --> Focus
+    User --> Garden
+    User --> Stats
+    Focus --> Rewards
+        </pre>
+    </div>
+
+    <h2>4. Program Flowchart</h2>
+    <div class="description">Outlines the user's navigational flow within the app.</div>
+    <div class="diagram-container">
+        <pre class="mermaid">
+flowchart TD
+    Start([Launch App]) --> CheckAuth{Authenticated?}
+    CheckAuth -- No --> AuthScreen[Login / Signup] --> MainMenu
+    CheckAuth -- Yes --> MainMenu[Main Tab Interface]
+    
+    MainMenu --> FocusTab[Focus Timer]
+    MainMenu --> GardenTab[3D Garden]
+    MainMenu --> ProfileTab[Profile Stats]
+    
+    FocusTab --> SetupSession[Select Duration & Tag]
+    SetupSession --> StartFocus[Start Timer]
+    StartFocus --> SessionActive{Session Completed?}
+    
+    SessionActive -- Abandoned --> EndAband[Status: Abandoned]
+    SessionActive -- Yes --> GiveRewards[Award XP] --> EndSuccess[Status: Completed]
+        </pre>
+    </div>
+
+    <h2>5. Activity Diagram (Focus Session)</h2>
+    <div class="description">Shows the specific activities during a focus timer session.</div>
+    <div class="diagram-container">
+        <pre class="mermaid">
+stateDiagram-v2
+    [*] --> Idle
+    Idle --> ConfiguringSession : Set timer
+    ConfiguringSession --> SessionActive : Start
+    
+    state SessionActive {
+        [*] --> CountingDown
+        CountingDown --> Paused : User pauses
+        Paused --> CountingDown : User resumes
+        CountingDown --> Abandoned : User aborts
+        CountingDown --> Completed : Timer reaches 0
+    }
+    
+    SessionActive --> CalculatingRewards : Completed
+    SessionActive --> RecordingFailure : Abandoned
+    
+    CalculatingRewards --> UpdatingProfile : Add XP
+    RecordingFailure --> ApplyingPenalties : Deduct Health
+    
+    UpdatingProfile --> [*]
+    ApplyingPenalties --> [*]
+        </pre>
+    </div>
+
+    <h2>6. Sequence Diagram</h2>
+    <div class="description">Demonstrates the data exchange between components when completing a focus session.</div>
+    <div class="diagram-container">
+        <pre class="mermaid">
+sequenceDiagram
+    actor User
+    participant App as React Native App
+    participant Timer as Timer logic
+    participant DB as Supabase backend
+    
+    User->>App: Configure & Start Focus Session
+    App->>DB: Create Session Record (status='active')
+    App->>Timer: Start Countdown
+    Timer-->>App: Tick over time
+    
+    alt Session Finished
+        Timer->>App: Reach 0
+        App->>DB: Update Session (status='completed')
+        App->>DB: Add XP to Profile
+        App->>DB: Update Plant properties
+        App-->>User: Render Success UI / Level Up
+    else User Aborts
+        User->>App: Press "Give Up"
+        App->>Timer: Stop Countdown
+        App->>DB: Update Session (status='abandoned')
+        App-->>User: Render Failure UI
+    end
+        </pre>
+    </div>
+
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            securityLevel: 'loose'
+        });
+    </script>
+</body>
+
+</html>
